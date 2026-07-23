@@ -3,20 +3,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SkillBadge from '../components/SkillBadge.astro';
 import ExperienceItem from '../components/ExperienceItem.astro';
 
-// TODO: preencher com as stacks reais que você domina, agrupadas do jeito que fizer
-// sentido pra você (ex: por camada, por tipo de sistema, etc.)
 const skillGroups = [
   {
     category: 'Sistemas que já construí',
-    skills: ['CRM / discadores', 'Sites institucionais + blog', 'Plataformas de afiliados', 'APIs'],
+    skills: ['CRM / discadores', 'Sites institucionais + blog', 'Plataformas de afiliados', 'APIs de alta escala'],
   },
   {
     category: 'Backend',
-    skills: ['PHP', 'Node.js'],
+    skills: ['Laravel', 'PHP', 'Node.js'],
   },
   {
     category: 'Frontend',
-    skills: ['Vue / Nuxt', 'Tailwind CSS'],
+    skills: ['Vue.js / Nuxt', 'Tailwind CSS'],
+  },
+  {
+    category: 'Infraestrutura & DevOps',
+    skills: ['AWS', 'CI/CD (GitHub Actions)', 'Docker', 'Streaming de vídeo (HLS)'],
+  },
+  {
+    category: 'Integrações',
+    skills: ['Gateways de pagamento', 'Regras de negócio complexas'],
   },
 ];
 ---
@@ -24,10 +30,32 @@ const skillGroups = [
 <BaseLayout title="Sobre" description="Quem sou, trajetória e stacks com que trabalho.">
   <h1 class="text-2xl font-bold">Sobre mim</h1>
 
-  <section class="mt-6">
-    {/* TODO: escrever a bio real — quem você é, sua trajetória, o que te move. Não inventar. */}
+  <section class="mt-6 space-y-4">
     <p class="text-slate-600 dark:text-slate-400">
-      [Escreva aqui sua bio: quem você é, sua trajetória profissional e o que busca agora.]
+      Sou engenheiro de software full stack focado em construir sistemas escaláveis,
+      aplicações de alta performance e arquiteturas de backend confiáveis.
+    </p>
+    <p class="text-slate-600 dark:text-slate-400">
+      Tenho experiência sólida projetando e desenvolvendo APIs robustas, lidando com regras de
+      negócio complexas e construindo sistemas que escalam em ambiente de produção. Meu
+      trabalho vai além de desenvolver features: envolve decisões de arquitetura, otimização
+      de performance e manutenibilidade a longo prazo.
+    </p>
+    <p class="text-slate-600 dark:text-slate-400">
+      Trabalho extensivamente com infraestrutura cloud na AWS, incluindo pipelines de deploy,
+      automação de CI/CD com GitHub Actions e ambientes containerizados. Também já lidei com
+      arquiteturas de streaming de vídeo (HLS) e integrações com gateways de pagamento,
+      construindo fluxos de transação seguros e confiáveis.
+    </p>
+    <p class="text-slate-600 dark:text-slate-400">
+      Minha stack atual inclui Laravel, Vue.js e AWS, e estou sempre explorando novas
+      tecnologias e abordagens para melhorar design de sistemas e eficiência de engenharia. Sou
+      movido por resolver problemas reais, melhorar sistemas continuamente e contribuir com
+      produtos que exigem qualidade, escalabilidade e ownership.
+    </p>
+    <p class="text-slate-600 dark:text-slate-400">
+      Agora estou expandindo minha atuação para além do vínculo CLT — buscando projetos
+      freelance e parcerias onde eu possa aplicar essa mesma bagagem técnica.
     </p>
   </section>
 
