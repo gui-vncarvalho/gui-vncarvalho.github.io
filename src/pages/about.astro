@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SkillBadge from '../components/SkillBadge.astro';
+import ExperienceItem from '../components/ExperienceItem.astro';
+
+// TODO: preencher com as stacks reais que você domina, agrupadas do jeito que fizer
+// sentido pra você (ex: por camada, por tipo de sistema, etc.)
+const skillGroups = [
+  {
+    category: 'Sistemas que já construí',
+    skills: ['CRM / discadores', 'Sites institucionais + blog', 'Plataformas de afiliados', 'APIs'],
+  },
+  {
+    category: 'Backend',
+    skills: ['PHP', 'Node.js'],
+  },
+  {
+    category: 'Frontend',
+    skills: ['Vue / Nuxt', 'Tailwind CSS'],
+  },
+];
+---
+
+<BaseLayout title="Sobre" description="Quem sou, trajetória e stacks com que trabalho.">
+  <h1 class="text-2xl font-bold">Sobre mim</h1>
+
+  <section class="mt-6">
+    {/* TODO: escrever a bio real — quem você é, sua trajetória, o que te move. Não inventar. */}
+    <p class="text-slate-600 dark:text-slate-400">
+      [Escreva aqui sua bio: quem você é, sua trajetória profissional e o que busca agora.]
+    </p>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-semibold">Experiência</h2>
+    <div class="mt-4 space-y-6">
+      {/* TODO: substituir pelos cargos/empresas reais */}
+      <ExperienceItem role="[Cargo]" place="[Empresa]" period="[Período]">
+        [Descrição breve da contribuição/responsabilidade.]
+      </ExperienceItem>
+    </div>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-semibold">Stacks e estilos de sistema</h2>
+    <div class="mt-4 space-y-4">
+      {
+        skillGroups.map((group) => (
+          <div>
+            <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">
+              {group.category}
+            </h3>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <SkillBadge label={skill} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

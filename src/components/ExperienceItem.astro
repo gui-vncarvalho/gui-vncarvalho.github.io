@@ -1,0 +1,18 @@
+---
+interface Props {
+  role: string;
+  place: string;
+  period: string;
+}
+
+const { role, place, period } = Astro.props;
+---
+
+<div class="border-l-2 border-slate-300 pl-4 dark:border-slate-700">
+  <p class="text-sm text-slate-500 dark:text-slate-400">{period}</p>
+  <h3 class="font-semibold">{role}</h3>
+  <p class="text-sm text-slate-600 dark:text-slate-400">{place}</p>
+  <div class="mt-1 text-sm">
+    <slot />
+  </div>
+</div>

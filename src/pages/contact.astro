@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// TODO: substituir pelos seus links e e-mail reais.
+const links = [
+  { label: 'E-mail', href: 'mailto:seu-email@exemplo.com' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/seu-usuario' },
+  { label: 'GitHub', href: 'https://github.com/seu-usuario' },
+  { label: 'WhatsApp', href: 'https://wa.me/55SEUNUMERO' },
+];
+---
+
+<BaseLayout title="Contato" description="Fale comigo.">
+  <h1 class="text-2xl font-bold">Contato</h1>
+  <p class="mt-3 text-slate-600 dark:text-slate-400">
+    A forma mais rápida de falar comigo é por um dos canais abaixo.
+    {/* TODO: quando quiser um formulário de contato de verdade, dá pra integrar com um
+        serviço tipo Formspree (sem precisar de backend próprio) ou, mais pra frente,
+        migrar o Astro para SSR e ter um endpoint de API próprio. */}
+  </p>
+
+  <ul class="mt-6 space-y-3">
+    {
+      links.map((link) => (
+        <li>
+          <a href={link.href} class="text-lg underline" target="_blank" rel="noopener noreferrer">
+            {link.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

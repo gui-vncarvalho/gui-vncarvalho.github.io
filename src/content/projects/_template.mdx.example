@@ -1,0 +1,45 @@
+# Template para novos cases de projeto
+#
+# Este arquivo NÃO é publicado (prefixo "_" e extensão ".example" ficam fora do glob
+# definido em src/content.config.ts). Para adicionar um novo case:
+#
+#   1. Copie este arquivo para "nome-do-projeto.mdx" (sem o "_" e sem ".example").
+#   2. Preencha o frontmatter e o corpo com informações reais — nunca invente métricas
+#      ou resultados que não aconteceram.
+#
+# Candidatos a cases futuros (lembrete, não esquecer):
+#   - "nilo": projeto pessoal, gestor financeiro — pode virar case assim que estiver
+#     apresentável.
+#   - Projetos feitos para empregadores: SÓ adicionar depois de
+#     confirmar autorização das respectivas empresas para citar o trabalho publicamente.
+#
+# ---
+# title: "Nome do projeto"
+# summary: "Resumo de 1-2 frases do que o projeto faz e para quem."
+# role: "Seu papel no projeto (ex: Desenvolvedor full stack, Tech lead, Colaborador principal)"
+# stack: ["Tecnologia 1", "Tecnologia 2"]
+# period:
+#   start: "2024"
+#   end: "2025"          # opcional, omitir se ainda estiver ativo
+# metrics:
+#   - label: "Ex: usuários ativos"
+#     value: "Ex: 1.200/mês"
+# links:
+#   live: "https://..."   # opcional
+#   repo: "https://..."   # opcional
+# images: ["/projects/nome-do-projeto/screenshot-1.png"]
+# featured: false
+# draft: true             # true até você revisar e ter certeza que pode publicar
+# ---
+#
+# ## Contexto
+#
+# (Qual problema o projeto resolve, para quem, em que empresa/contexto.)
+#
+# ## O que foi construído
+#
+# (Principais features, decisões técnicas relevantes.)
+#
+# ## Resultado
+#
+# (Métricas reais, feedback do cliente, impacto observável.)
