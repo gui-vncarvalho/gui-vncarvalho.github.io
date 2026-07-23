@@ -3,26 +3,67 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SkillBadge from '../components/SkillBadge.astro';
 import ExperienceItem from '../components/ExperienceItem.astro';
 
-const skillGroups = [
+const experience = [
   {
-    category: 'Sistemas que já construí',
-    skills: ['CRM / discadores', 'Sites institucionais + blog', 'Plataformas de afiliados', 'APIs de alta escala'],
+    role: 'Software Engineer',
+    place: 'Plataforma SaaS de educação',
+    period: 'fev/2026 – atual · Remoto (Paraná, Brasil)',
+    description:
+      'Engenheiro líder numa plataforma SaaS multi-tenant de educação online com 76+ tenants ativos em produção, e-commerce integrado, programa de afiliados e gamificação. Design de APIs REST escaláveis (Laravel 10, PHP 8.3) cobrindo matrículas, assinaturas, transações financeiras, comissões de afiliados e controle de acesso. Arquitetou integrações avançadas de pagamento com Pagar.me (checkout customizado, assinaturas recorrentes, split de pagamento, estornos, reconciliação via webhook) e está expandindo para Stripe para transações internacionais. Pipelines de CI/CD com GitHub Actions e Docker, deploy automatizado na AWS ECS. Gerencia infraestrutura AWS (ECS, Aurora MySQL, S3, CloudWatch).',
   },
   {
+    role: 'Software Engineer',
+    place: 'Software house',
+    period: 'jan/2024 – dez/2025 · Remoto (Paraná, Brasil)',
+    description:
+      'Contratado para construir a versão inicial da plataforma EAD multi-tenant com Laravel 10 e Vue.js 3 na AWS — sistema que depois escalou para 76+ tenants em produção. Desenhou a arquitetura de multi-tenancy, o schema de banco de dados e os fluxos centrais de API desde o zero, junto com o time de produto. Desenvolveu sites institucionais para clientes dos setores de saúde e educação.',
+  },
+  {
+    role: 'Junior Software Engineer',
+    place: 'Software house',
+    period: 'dez/2022 – mar/2024 · Remoto (Paraná, Brasil)',
+    description:
+      'Desenvolveu e manteve features de plataformas de educação legadas construídas em Laravel e CodeIgniter. Construiu interfaces frontend responsivas com Vue.js e Bootstrap. Contribuiu com manutenção e evolução de sistemas backend em múltiplos projetos de clientes simultâneos.',
+  },
+  {
+    role: 'Técnico de TI → Desenvolvedor Web',
+    place: 'Empresa de tecnologia',
+    period: 'fev/2020 – nov/2022 · Guarulhos, SP',
+    description:
+      'Entrou como técnico de TI e migrou para desenvolvimento web, contribuindo para o crescimento da empresa de 2 para 30 contratos ativos. Desenvolveu sites e soluções de e-commerce com PHP, Bootstrap e Joomla para clientes dos setores institucional, saúde e educação. Planejou e executou instalações completas de infraestrutura de TI (cabeamento estruturado, racks, switches gerenciados, servidores, load balancers) e sistemas de CFTV e controle de acesso.',
+  },
+];
+
+const education = [
+  { school: 'Estácio', course: 'Tecnólogo em Análise e Desenvolvimento de Sistemas', period: '2023' },
+  { school: 'UpInside Treinamentos', course: 'Full Stack PHP Developer', period: '2020 – 2022' },
+  { school: 'ETEC Santa Isabel', course: 'Informática para Internet', period: '2015 – 2017' },
+];
+
+const skillGroups = [
+  {
     category: 'Backend',
-    skills: ['Laravel', 'PHP', 'Node.js'],
+    skills: ['Laravel 10', 'PHP 8.3', 'APIs REST', 'Multi-tenancy', 'Processamento de webhooks'],
   },
   {
     category: 'Frontend',
-    skills: ['Vue.js / Nuxt', 'Tailwind CSS'],
+    skills: ['Vue.js 2 & 3', 'TypeScript', 'Vuex', 'Pinia', 'Vite'],
   },
   {
-    category: 'Infraestrutura & DevOps',
-    skills: ['AWS', 'CI/CD (GitHub Actions)', 'Docker', 'Streaming de vídeo (HLS)'],
+    category: 'Cloud & DevOps',
+    skills: ['AWS (ECS, Aurora MySQL, S3, CloudWatch)', 'Docker', 'CI/CD (GitHub Actions)'],
+  },
+  {
+    category: 'Banco de dados',
+    skills: ['MySQL', 'Aurora MySQL'],
   },
   {
     category: 'Integrações',
-    skills: ['Gateways de pagamento', 'Regras de negócio complexas'],
+    skills: ['Pagar.me', 'Stripe', 'Streaming de vídeo (HLS)', 'Sistemas de afiliados'],
+  },
+  {
+    category: 'Sistemas que já construí',
+    skills: ['SaaS multi-tenant', 'CRM / discadores', 'Sites institucionais + blog', 'Plataformas de afiliados'],
   },
 ];
 ---
@@ -32,8 +73,8 @@ const skillGroups = [
 
   <section class="mt-6 space-y-4">
     <p class="text-slate-600 dark:text-slate-400">
-      Sou engenheiro de software full stack focado em construir sistemas escaláveis,
-      aplicações de alta performance e arquiteturas de backend confiáveis.
+      Sou engenheiro de software full stack com mais de 6 anos de experiência construindo
+      plataformas SaaS multi-tenant, APIs REST escaláveis e arquiteturas de backend na nuvem.
     </p>
     <p class="text-slate-600 dark:text-slate-400">
       Tenho experiência sólida projetando e desenvolvendo APIs robustas, lidando com regras de
@@ -62,10 +103,13 @@ const skillGroups = [
   <section class="mt-10">
     <h2 class="text-xl font-semibold">Experiência</h2>
     <div class="mt-4 space-y-6">
-      {/* TODO: substituir pelos cargos/empresas reais */}
-      <ExperienceItem role="[Cargo]" place="[Empresa]" period="[Período]">
-        [Descrição breve da contribuição/responsabilidade.]
-      </ExperienceItem>
+      {
+        experience.map((job) => (
+          <ExperienceItem role={job.role} place={job.place} period={job.period}>
+            {job.description}
+          </ExperienceItem>
+        ))
+      }
     </div>
   </section>
 
@@ -87,5 +131,21 @@ const skillGroups = [
         ))
       }
     </div>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-semibold">Formação</h2>
+    <ul class="mt-4 space-y-2">
+      {
+        education.map((item) => (
+          <li>
+            <p class="font-medium">{item.course}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">
+              {item.school} · {item.period}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </BaseLayout>
