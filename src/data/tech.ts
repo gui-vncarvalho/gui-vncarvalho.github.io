@@ -9,8 +9,8 @@ export const techGroups: { title: string; items: [name: string, use: string][] }
   {
     title: 'BACK-END E ARQUITETURA',
     items: [
-      ['Laravel 10', 'APIs REST de matrículas, assinaturas, transações e comissões, com arquitetura multi-tenant.'],
-      ['PHP 8.3', 'Linguagem principal dos sistemas em produção, do site institucional à plataforma SaaS.'],
+      ['Laravel', 'APIs REST de matrículas, assinaturas, transações e comissões, com arquitetura multi-tenant.'],
+      ['PHP', 'Linguagem principal dos sistemas em produção, do site institucional à plataforma SaaS.'],
       ['APIs REST', 'Regras de negócio expostas para web e integrações, com autenticação e versionamento.'],
       ['Multi-tenancy', 'Uma plataforma, 250+ clientes, com dados e configurações isolados por cliente.'],
       ['Filas · Horizon', 'Processamento em segundo plano, monitorado pelo Horizon e mantido pelo Supervisor.'],
@@ -33,7 +33,7 @@ export const techGroups: { title: string; items: [name: string, use: string][] }
   {
     title: 'FRONT-END',
     items: [
-      ['Vue 3', 'Interfaces das plataformas educacionais e painéis com muita interação (e Vue 2 no legado).'],
+      ['Vue.js', 'Interfaces das plataformas educacionais e painéis com muita interação (Vue 3, e Vue 2 no legado).'],
       ['Nuxt', 'Aplicações Vue com renderização no servidor.'],
       ['TypeScript', 'Tipagem no front-end para mudar o código com segurança.'],
       ['Pinia', 'Estado compartilhado das aplicações Vue.'],
