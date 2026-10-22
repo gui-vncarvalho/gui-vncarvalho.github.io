@@ -1,0 +1,36 @@
+---
+import SectionHead from './SectionHead.astro';
+
+const quotes = [1, 2, 3].map((n) => ({
+  text: `Depoimento do cliente ${n} vai aqui.`,
+  who: `[nome, tipo de empresa ${n}]`,
+}));
+---
+
+<section id="depoimentos" class="shell section-gap">
+  <div data-rv>
+    <SectionHead
+      title="Quem já trabalhou comigo"
+      sub="Substitua pelos depoimentos reais. Sem nome de empresa, só o tipo de cliente."
+    />
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
+      {
+        quotes.map((q) => (
+          <figure class="quote flex min-h-[260px] flex-col justify-between rounded-[28px] border-[1.5px] border-dashed border-line2 p-[30px]">
+            <span class="font-display text-[72px] leading-[0.6] font-extrabold text-acc" aria-hidden="true">
+              “
+            </span>
+            <blockquote class="text-xl leading-[1.4] font-medium">{q.text}</blockquote>
+            <figcaption class="mt-[18px] font-mono text-[13px] font-medium text-dim">{q.who}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .quote {
+    background-image: repeating-linear-gradient(135deg, var(--pill) 0 2px, transparent 2px 16px);
+  }
+</style>

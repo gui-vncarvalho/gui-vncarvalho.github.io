@@ -1,0 +1,87 @@
+---
+import { site } from '../data/site';
+
+const kinds = ['Site institucional', 'Loja virtual', 'Sistema sob medida', 'Pagamentos e integrações', 'Outro'];
+const DEFAULT_KIND = 2;
+const links = [
+  { label: `LinkedIn · ${site.linkedin.label}`, href: site.linkedin.href },
+  { label: `GitHub · ${site.github.label}`, href: site.github.href },
+];
+const field =
+  'rounded-[14px] border-[1.5px] border-[rgba(251,249,255,.25)] bg-field px-[18px] py-4 text-base text-snow outline-none placeholder:text-[oklch(0.75_0.05_295)] focus-visible:border-yellow aria-invalid:border-[oklch(0.7_0.19_25)]';
+---
+
+<section id="contato" class="shell section-gap">
+  <div
+    data-rv
+    class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] items-center gap-[clamp(28px,4vw,56px)] rounded-[clamp(28px,3vw,40px)] bg-yellow p-[clamp(24px,4.4vw,64px)] text-ink"
+  >
+    <div>
+      <h2 class="font-display text-[clamp(44px,6.4vw,92px)] leading-[0.95] font-extrabold tracking-[-0.045em] text-balance">
+        Tem um sistema para tirar do papel?
+      </h2>
+      <p class="mt-6 max-w-[520px] text-[clamp(18px,1.7vw,24px)] leading-[1.4] font-medium">
+        Me conta o que você precisa, em poucas palavras. Eu respondo com um plano claro, sem jargão.
+      </p>
+      <div class="mt-7 flex flex-wrap gap-2.5">
+        {
+          site.email && (
+            <a href={`mailto:${site.email}`} class="rounded-full bg-ink px-5 py-[13px] font-bold text-snow no-underline hover:text-yellow">
+              {site.email}
+            </a>
+          )
+        }
+        {
+          links.map((l) => (
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-full border-2 border-ink px-[18px] py-[11px] font-bold no-underline hover:bg-ink hover:text-yellow"
+            >
+              {l.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <form
+      data-contact
+      data-endpoint={site.formspree}
+      novalidate
+      class="flex flex-col gap-4 rounded-[28px] bg-ink p-[clamp(20px,2.4vw,32px)] text-snow"
+    >
+      <fieldset class="flex flex-col gap-4">
+        <legend class="mb-4 text-xl font-bold">O que você quer construir?</legend>
+        <div class="flex flex-wrap gap-2">
+          {
+            kinds.map((k, i) => (
+              <label class="kind cursor-pointer rounded-full border-[1.5px] border-[rgba(251,249,255,.4)] px-4 py-2.5 text-[15px] font-medium transition-all duration-150">
+                <input type="radio" name="tipo" value={k} checked={i === DEFAULT_KIND} class="sr-only" />
+                {k}
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+      <input name="nome" aria-label="Seu nome" placeholder="Seu nome" autocomplete="name" required class={field} />
+      <input name="email" type="email" aria-label="Seu e-mail" placeholder="Seu e-mail" autocomplete="email" required class={field} />
+      <textarea name="mensagem" aria-label="Conte um pouco sobre a ideia" placeholder="Conte um pouco sobre a ideia" class:list={[field, 'h-24 resize-none']}></textarea>
+      <p data-contact-error role="alert" class="text-sm font-medium text-[oklch(0.82_0.12_25)] empty:hidden"></p>
+      <button type="submit" class="btn-yellow p-[17px] text-[17px]">Enviar mensagem →</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .kind:has(:checked) {
+    background: var(--color-yellow);
+    border-color: var(--color-yellow);
+    color: var(--color-ink);
+  }
+  .kind:has(:focus-visible) {
+    outline: 2px solid var(--color-yellow);
+    outline-offset: 3px;
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+import { site, sections } from '../data/site';
+---
+
+<header class="pointer-events-none fixed inset-x-0 top-3.5 z-90 px-[clamp(12px,3vw,40px)]">
+  <nav
+    aria-label="Principal"
+    class="pointer-events-auto mx-auto flex max-w-[1328px] items-center justify-between gap-3 rounded-full border border-line bg-surf py-2 pr-2 pl-3 shadow-[0_10px_30px_rgba(8,2,22,.25)]"
+  >
+    <a href="/#inicio" class="flex items-center gap-2.5 no-underline hover:text-fg">
+      <span
+        class="flex size-[38px] items-center justify-center rounded-full bg-yellow font-display text-[15px] font-extrabold text-ink"
+        aria-hidden="true">GC</span
+      >
+      <span class="hidden font-display text-[17px] font-bold whitespace-nowrap min-[600px]:inline min-[980px]:max-[1179px]:hidden">{site.name}</span>
+    </a>
+
+    <ul class="hidden gap-0.5 font-medium min-[980px]:flex">
+      {
+        sections
+          .filter((s) => s.nav)
+          .map((s) => (
+            <li>
+              <a
+                href={`/#${s.id}`}
+                data-nav={s.id}
+                class="block rounded-full px-4 py-[9px] no-underline transition-all duration-200 data-on:bg-yellow data-on:text-ink"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Alternar tema claro e escuro"
+        class="flex items-center gap-2 rounded-full border-[1.5px] border-line2 px-3.5 py-[9px] text-sm font-medium"
+      >
+        <span class="size-3.5 rounded-full border-2 border-current bg-current light:bg-transparent"></span>
+        <span class="hidden min-[600px]:inline light:min-[600px]:hidden">Escuro</span>
+        <span class="hidden light:min-[600px]:inline">Claro</span>
+      </button>
+      <button
+        type="button"
+        data-palette-open
+        aria-label="Abrir busca e navegação (Ctrl K)"
+        class="flex items-center gap-2.5 rounded-full bg-yellow px-3.5 py-[9px] text-sm font-bold text-ink"
+      >
+        <span class="hidden min-[600px]:inline">Buscar</span>
+        <span class="rounded-md bg-[rgba(32,8,70,.14)] px-[7px] py-0.5 font-mono text-xs font-medium">
+          <span class="hidden min-[600px]:inline">⌘K</span><span class="min-[600px]:hidden">☰ Menu</span>
+        </span>
+      </button>
+    </div>
+  </nav>
+</header>

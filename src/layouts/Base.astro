@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CommandPalette from '../components/CommandPalette.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
+---
+
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1b0f3a" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('gc-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div data-progress class="fixed top-0 left-0 z-[120] h-[3px] w-0 bg-yellow"></div>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <CommandPalette />
+    <div
+      data-toast
+      role="status"
+      class="fixed bottom-7 left-1/2 z-[250] max-w-[92vw] -translate-x-1/2 rounded-full bg-yellow px-[22px] py-3.5 font-bold text-ink shadow-[0_20px_40px_rgba(8,2,22,.4)] empty:hidden"
+    >
+    </div>
+    <script>
+      import '../scripts/base';
+    </script>
+  </body>
+</html>

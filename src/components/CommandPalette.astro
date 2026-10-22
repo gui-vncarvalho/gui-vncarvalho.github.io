@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import { site, sections } from '../data/site';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((p) => ({ slug: p.id, title: p.data.title }));
+
+const data = {
+  sections: sections.map((s) => ({ id: s.id, label: s.long ?? s.label })),
+  projects,
+  linkedin: site.linkedin,
+  github: site.github,
+};
+---
+
+<div
+  data-palette
+  hidden
+  class="fixed inset-0 z-200 flex items-start justify-center bg-[rgba(8,2,22,.65)] px-4 pt-[12vh]"
+>
+  <div
+    role="dialog"
+    aria-modal="true"
+    aria-label="Busca e navegação"
+    class="w-[min(640px,100%)] overflow-hidden rounded-3xl border border-line2 bg-surf text-fg shadow-[0_40px_80px_rgba(8,2,22,.5)]"
+  >
+    <div class="flex items-center gap-3 border-b border-line px-[22px] py-[18px]">
+      <span class="font-mono text-base font-medium text-acc" aria-hidden="true">›</span>
+      <input
+        data-palette-input
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="cmd-list"
+        aria-autocomplete="list"
+        aria-label="Digite um comando ou seção"
+        placeholder="Ir para… ou digite um comando"
+        autocomplete="off"
+        spellcheck="false"
+        class="flex-1 border-none bg-transparent text-lg font-medium text-fg outline-none placeholder:text-mute"
+      />
+      <kbd class="rounded-md border border-line2 px-2 py-[3px] font-mono text-xs font-medium text-dim">esc</kbd>
+    </div>
+    <ul id="cmd-list" role="listbox" aria-label="Comandos" class="max-h-[min(52vh,420px)] overflow-x-hidden overflow-y-auto p-2"></ul>
+    <p data-palette-empty hidden class="p-[22px] text-dim">Nada encontrado.</p>
+    <div class="flex gap-[18px] border-t border-line px-[22px] py-3 font-mono text-xs font-medium text-dim">
+      <span>↑↓ navegar</span><span>↵ abrir</span><span>⌘K alternar</span>
+    </div>
+  </div>
+  <script is:inline type="application/json" data-palette-data set:html={JSON.stringify(data)} />
+</div>

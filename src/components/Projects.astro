@@ -1,0 +1,132 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import SectionHead from './SectionHead.astro';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const host = (url: string) => new URL(url).host.replace(/^www\./, '');
+---
+
+<section id="projetos" class="shell pt-[clamp(70px,10vw,130px)]">
+  <div data-rv>
+    <SectionHead title="Projetos" sub="Sistemas que estão no ar. Escolha um para ver no computador e no celular." />
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-stretch gap-8">
+      <div class="flex flex-col border-b border-line">
+        {
+          projects.map((p, i) => (
+            <div class="border-t border-line py-6">
+              <button
+                type="button"
+                data-pick="proj"
+                data-i={i}
+                data-on={i === 0 ? '' : undefined}
+                aria-pressed={i === 0}
+                class="group flex w-full items-baseline gap-4 text-left"
+              >
+                <span class="font-mono text-[13px] font-medium text-acc">{String(i + 1).padStart(2, '0')}</span>
+                <span class="font-display text-[clamp(34px,4vw,52px)] leading-[1.02] font-extrabold tracking-[-0.04em] text-mute transition-colors duration-200 group-hover:text-fg group-data-on:text-fg">
+                  {p.data.title}
+                </span>
+              </button>
+              <div data-pane="proj" data-i={i} hidden={i !== 0} class="mt-3.5 pl-10">
+                <p class="max-w-[480px] text-[clamp(17px,1.5vw,21px)] leading-[1.45]">{p.data.summary}</p>
+                <ul class="mt-4 flex flex-wrap gap-2">
+                  {p.data.tags.map((t) => (
+                    <li class="tag">{t}</li>
+                  ))}
+                </ul>
+                <div class="mt-5 flex flex-wrap gap-2.5">
+                  <a href={`/projetos/${p.id}`} class="btn-yellow px-[22px] py-3 text-base no-underline">
+                    Ver case →
+                  </a>
+                  {p.data.links.live && (
+                    <a
+                      href={p.data.links.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-line px-5 py-[11px] text-base no-underline"
+                    >
+                      {host(p.data.links.live)} ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div
+        data-stage={projects[0].data.stage}
+        data-stages={JSON.stringify(projects.map((p) => p.data.stage))}
+        class="stage relative aspect-[1.12/1] min-h-[340px] overflow-hidden rounded-[32px] border border-line perspective-[1600px]"
+      >
+        <div data-tilt class="absolute inset-0 transform-3d">
+          {
+            projects.map((p, i) => (
+              <div data-layer data-i={i} data-pos={i === 0 ? 'on' : 'after'} class="layer absolute inset-0 transform-3d">
+                <div class="absolute top-[11%] left-[5%] w-[84%] overflow-hidden rounded-[14px] border border-black/25 bg-[#0d0d0d] shadow-[0_40px_70px_rgba(8,2,22,.5)]">
+                  <div class="flex h-7 items-center gap-1.5 bg-[#1b1b1d] px-3" aria-hidden="true">
+                    <span class="size-[9px] rounded-full bg-[#ff6159]" />
+                    <span class="size-[9px] rounded-full bg-[#ffbd2e]" />
+                    <span class="size-[9px] rounded-full bg-[#28c940]" />
+                    <span class="ml-3.5 font-mono text-[11px] text-[#a8a8ad]">{p.data.shots.url}</span>
+                  </div>
+                  <Image
+                    src={p.data.shots.desktop}
+                    alt={`${p.data.title} no computador`}
+                    widths={[480, 800, 1200]}
+                    sizes="(min-width: 900px) 40vw, 84vw"
+                    class="aspect-[1878/924] w-full object-cover object-top"
+                  />
+                </div>
+                <div class="absolute right-[4%] bottom-[6%] w-[27%] translate-z-[80px] rounded-[clamp(18px,2.4vw,32px)] border border-white/20 bg-[#0d0d0d] p-[clamp(4px,0.6vw,8px)] shadow-[0_40px_70px_rgba(8,2,22,.6)]">
+                  <Image
+                    src={p.data.shots.mobile}
+                    alt={`${p.data.title} no celular`}
+                    widths={[160, 326]}
+                    sizes="(min-width: 900px) 12vw, 25vw"
+                    class="aspect-[326/714] w-full rounded-[clamp(14px,1.8vw,24px)] object-cover object-top"
+                  />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stage {
+    transition: background 0.5s ease;
+  }
+  .stage[data-stage='purple'] {
+    background: var(--color-purple);
+  }
+  .stage[data-stage='white'] {
+    background: var(--stage-white);
+  }
+  .stage[data-stage='yellow'] {
+    background: var(--color-yellow);
+  }
+
+  .layer {
+    visibility: hidden;
+    transform: translate3d(120px, 0, -260px);
+    transition:
+      transform 0.6s var(--ease-out-soft),
+      visibility 0s linear 0.6s;
+  }
+  .layer[data-pos='before'] {
+    transform: translate3d(-120px, 0, -260px);
+  }
+  .layer[data-pos='on'] {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0s;
+  }
+</style>

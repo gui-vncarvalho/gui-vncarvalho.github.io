@@ -1,36 +1,36 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import Base from '../../layouts/Base.astro';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<BaseLayout title="Blog" description="Artigos e estudos técnicos.">
-  <h1 class="text-2xl font-bold">Blog</h1>
-
-  {
-    posts.length === 0 ? (
-      <p class="mt-6 text-slate-600 dark:text-slate-400">Nenhum post publicado ainda.</p>
-    ) : (
-      <ul class="mt-6 space-y-4">
-        {posts.map((post) => (
-          <li>
-            <a href={`/blog/${post.id}`} class="text-lg font-medium hover:underline">
-              {post.data.title}
-            </a>
-            <p class="text-sm text-slate-500 dark:text-slate-400">
-              {post.data.pubDate.toLocaleDateString('pt-BR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </p>
-            <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">{post.data.description}</p>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-</BaseLayout>
+<Base title="Blog" description="Artigos e estudos técnicos.">
+  <section class="shell pt-[clamp(120px,16vh,170px)]">
+    <h1 class="t-section">Blog<span class="text-yellow">.</span></h1>
+    <p class="t-sub">Notas de engenharia: arquitetura, pagamentos, deploy e o que aprendi em produção.</p>
+    {
+      posts.length === 0 ? (
+        <p class="mt-14 font-mono text-sm text-dim">// nenhum post publicado ainda</p>
+      ) : (
+        <ul class="mt-14 border-b border-line">
+          {posts.map((post) => (
+            <li class="border-t border-line">
+              <a href={`/blog/${post.id}`} class="group block py-7 no-underline">
+                <span class="font-mono text-[13px] font-medium text-acc">
+                  {post.data.pubDate.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </span>
+                <span class="mt-2 block font-display text-[clamp(28px,3.4vw,44px)] leading-[1.05] font-extrabold tracking-[-0.03em] group-hover:text-acc">
+                  {post.data.title}
+                </span>
+                <span class="mt-2 block max-w-[700px] text-dim">{post.data.description}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</Base>

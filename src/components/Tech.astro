@@ -1,0 +1,66 @@
+---
+import SectionHead from './SectionHead.astro';
+import { techGroups, techIntro } from '../data/tech';
+
+const tools = techGroups.flatMap((g) => g.items.map(([name, use]) => ({ group: g.title, name, use })));
+let index = 0;
+---
+
+<section id="tecnologias" class="shell section-gap">
+  <div data-rv>
+    <SectionHead
+      title="Tecnologias de domínio"
+      sub="A stack que uso no dia a dia, agrupada pelo problema que resolve. Passe o mouse ou toque para ver onde cada uma entra."
+    />
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] items-start gap-8">
+      <div aria-live="polite" class="min-h-[340px] rounded-[32px] bg-yellow p-[clamp(22px,3vw,36px)] text-ink min-[860px]:sticky min-[860px]:top-28">
+        <div data-pane="tech" data-i="-1" class="flex min-h-[calc(340px-2*clamp(22px,3vw,36px))] flex-col justify-between">
+          <span class="font-mono text-[13px] font-medium tracking-[.04em]">{techIntro.group}</span>
+          <div>
+            <p class="font-display text-[clamp(40px,5vw,68px)] leading-none font-extrabold tracking-[-0.045em]">{techIntro.title}</p>
+            <p class="mt-4 text-[clamp(18px,1.6vw,22px)] leading-[1.4] font-medium">{techIntro.text}</p>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {techIntro.tags.map((t) => <li class="rounded-full border-[1.5px] border-ink px-3.5 py-1.5 text-sm font-bold">{t}</li>)}
+            </ul>
+          </div>
+        </div>
+        {
+          tools.map((t, i) => (
+            <div data-pane="tech" data-i={i} hidden class="flex min-h-[calc(340px-2*clamp(22px,3vw,36px))] flex-col justify-between">
+              <span class="font-mono text-[13px] font-medium tracking-[.04em]">{t.group}</span>
+              <div>
+                <p class="font-display text-[clamp(40px,5vw,68px)] leading-none font-extrabold tracking-[-0.045em]">{t.name}</p>
+                <p class="mt-4 text-[clamp(18px,1.6vw,22px)] leading-[1.4] font-medium">{t.use}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="flex flex-col gap-6">
+        {
+          techGroups.map((g) => (
+            <div>
+              <h3 class="mb-3 font-mono text-[13px] font-medium tracking-[.04em] text-dim">{g.title}</h3>
+              <div class="flex flex-wrap gap-2">
+                {g.items.map(([name]) => {
+                  const i = index++;
+                  return (
+                    <button
+                      type="button"
+                      data-pick="tech"
+                      data-i={i}
+                      aria-pressed="false"
+                      class="chip px-4 py-2 text-[clamp(15px,1.2vw,17px)] font-bold data-on:-translate-y-1"
+                    >
+                      {name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

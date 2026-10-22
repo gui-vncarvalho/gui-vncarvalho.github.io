@@ -1,7 +1,7 @@
 ---
-const year = new Date().getFullYear();
+import { site } from '../data/site';
 ---
 
-<footer class="border-t border-slate-200 py-6 text-center text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
-  <p>&copy; {year} Guilherme Carvalho. Construído com Astro.</p>
+<footer class="shell flex flex-wrap justify-between gap-3 pt-14 pb-9 text-sm text-dim">
+  <span>© {new Date().getFullYear()} {site.name}</span>
 </footer>

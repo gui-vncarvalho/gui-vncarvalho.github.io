@@ -1,0 +1,66 @@
+---
+import { codePanes, floats } from '../data/code';
+---
+
+<div data-scene-wrap aria-hidden="true" class="relative aspect-[660/700] w-full max-w-[660px] justify-self-center">
+  <div data-scene-inner class="absolute top-0 left-0 h-[700px] w-[660px] origin-top-left perspective-[1400px]">
+    <div data-scene class="absolute top-20 left-[60px] size-[560px] transform-3d">
+      {
+        codePanes.map((pane) => (
+          <div
+            data-code-pane
+            data-z={pane.z}
+            class="absolute overflow-hidden rounded-2xl border border-[rgba(251,249,255,.22)] bg-code text-snow shadow-[0_30px_60px_rgba(8,2,22,.55)]"
+            style={{ left: `${pane.x}px`, top: `${pane.y}px`, width: `${pane.w}px` }}
+          >
+            <div class="flex items-center gap-[7px] border-b border-[rgba(251,249,255,.12)] px-4 py-3">
+              <span class="size-2.5 rounded-full bg-yellow" />
+              <span class="size-2.5 rounded-full bg-snow" />
+              <span class="size-2.5 rounded-full bg-purple-mid" />
+              <span class="ml-2.5 font-mono text-xs text-[oklch(0.8_0.05_295)]">{pane.file}</span>
+            </div>
+            <div class="px-[18px] pt-3.5 pb-4 font-mono text-[13px] leading-[22px] whitespace-pre">
+              {pane.lines.map((line) => (
+                <div class="relative h-[22px]">
+                  <span data-ln data-start={line.start} data-len={line.len} class="code-line inline-block whitespace-pre">
+                    {line.tokens.map((tk) => (
+                      <span style={{ color: tk.color }}>{tk.t}</span>
+                    ))}
+                  </span>
+                  <span data-cur class="absolute top-[3px] left-0 h-4 w-2 bg-yellow opacity-0" />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+      {
+        floats.map((f) => (
+          <div
+            data-float
+            class="absolute flex items-center justify-center rounded-[22px] font-mono font-medium shadow-[0_20px_40px_rgba(8,2,22,.45)]"
+            style={{
+              left: `${f.x}px`,
+              top: `${f.y}px`,
+              width: `${f.s}px`,
+              height: `${f.s}px`,
+              fontSize: `${f.fs}px`,
+              background: f.bg,
+              color: f.fg,
+            }}
+          >
+            {f.g}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .code-line {
+      clip-path: inset(-2px 100% -2px 0);
+    }
+  }
+</style>

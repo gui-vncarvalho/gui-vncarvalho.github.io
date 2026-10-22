@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, next } = Astro.props;
+const { Content } = await render(project);
+const { title, summary, role, stack, period, tags, shots, links, order } = project.data;
+const facts = [
+  ['Papel', role],
+  ['Período', period.end ? `${period.start} — ${period.end}` : `${period.start} — atual`],
+  ['Stack', stack.join(' · ')],
+];
+---
+
+<Base title={title} description={summary}>
+  <article class="shell pt-[clamp(120px,16vh,170px)]">
+    <a href="/#projetos" class="font-mono text-[13px] font-medium text-dim no-underline">← todos os projetos</a>
+    <p class="mt-8 font-mono text-[13px] font-medium text-acc">case {String(order).padStart(2, '0')}</p>
+    <h1 class="mt-3 font-display text-[clamp(56px,8vw,120px)] leading-[0.92] font-extrabold tracking-[-0.045em]">
+      {title}<span class="text-yellow">.</span>
+    </h1>
+    <p class="mt-6 max-w-[760px] text-[clamp(19px,2vw,26px)] leading-[1.35] text-pretty">{summary}</p>
+    <ul class="mt-6 flex flex-wrap gap-2">{tags.map((t) => <li class="tag">{t}</li>)}</ul>
+    {
+      links.live && (
+        <a href={links.live} target="_blank" rel="noopener noreferrer" class="btn-yellow mt-8 inline-block px-6 py-3.5 no-underline">
+          Ver no ar ↗
+        </a>
+      )
+    }
+
+    <div class="mt-14 grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-px overflow-hidden rounded-[28px] border border-line bg-line">
+      {
+        facts.map(([label, value]) => (
+          <div class="bg-bg p-6">
+            <p class="font-mono text-xs font-medium tracking-[.04em] text-dim uppercase">{label}</p>
+            <p class="mt-2 text-lg font-medium">{value}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <figure class="mt-14 grid grid-cols-[1fr_auto] items-end gap-[clamp(12px,3vw,40px)]">
+      <div class="overflow-hidden rounded-[14px] border border-line bg-[#0d0d0d] shadow-[0_40px_70px_rgba(8,2,22,.5)]">
+        <div class="flex h-7 items-center gap-1.5 bg-[#1b1b1d] px-3" aria-hidden="true">
+          <span class="size-[9px] rounded-full bg-[#ff6159]"></span>
+          <span class="size-[9px] rounded-full bg-[#ffbd2e]"></span>
+          <span class="size-[9px] rounded-full bg-[#28c940]"></span>
+          <span class="ml-3.5 font-mono text-[11px] text-[#a8a8ad]">{shots.url}</span>
+        </div>
+        <Image src={shots.desktop} alt={`${title} no computador`} widths={[800, 1280, 1878]} sizes="(min-width: 1440px) 1100px, 75vw" class="w-full" />
+      </div>
+      <div class="w-[clamp(90px,18vw,240px)] rounded-[clamp(18px,2.4vw,32px)] border border-white/20 bg-[#0d0d0d] p-[clamp(4px,0.6vw,8px)] shadow-[0_40px_70px_rgba(8,2,22,.6)]">
+        <Image src={shots.mobile} alt={`${title} no celular`} widths={[240, 326]} sizes="18vw" class="w-full rounded-[clamp(14px,1.8vw,24px)]" />
+      </div>
+    </figure>
+
+    <div class="prose prose-theme mt-20 max-w-[760px] text-[clamp(17px,1.4vw,19px)]">
+      <Content />
+    </div>
+
+    <a href={`/projetos/${next.id}`} class="group mt-24 block border-t border-line pt-8 no-underline">
+      <span class="font-mono text-[13px] font-medium text-dim">próximo case</span>
+      <span class="mt-2 block font-display text-[clamp(40px,6vw,88px)] leading-none font-extrabold tracking-[-0.045em] group-hover:text-acc">
+        {next.data.title} →
+      </span>
+    </a>
+  </article>
+</Base>
+

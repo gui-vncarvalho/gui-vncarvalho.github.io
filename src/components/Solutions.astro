@@ -1,0 +1,41 @@
+---
+import SectionHead from './SectionHead.astro';
+import { solutions } from '../data/solutions';
+---
+
+<section id="solucoes" class="shell section-gap">
+  <div data-rv>
+    <SectionHead
+      title="Soluções"
+      sub="Sistemas diferentes, um fluxo integrado. Problemas reais que já resolvi em produção."
+    />
+    <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-5">
+      {
+        solutions.map((s, i) => (
+          <li class="flex flex-col gap-4 rounded-[28px] border border-line bg-surf p-7 transition-[transform,border-color] duration-200 hover:-translate-y-1 hover:border-yellow">
+            <div class="flex items-baseline gap-3">
+              <span class="font-mono text-[13px] font-medium text-acc">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="font-display text-[clamp(24px,2.2vw,30px)] leading-[1.05] font-extrabold tracking-[-0.03em]">{s.title}</h3>
+            </div>
+            <p class="flex-1 text-[17px] leading-[1.45] text-dim">{s.text}</p>
+            <p class="rounded-[14px] bg-code px-4 py-3 font-mono text-[13px] leading-[1.8] text-snow" aria-label={`Fluxo: ${s.flow}`}>
+              {
+                s.flow.split(' → ').map((step, j) => (
+                  <>
+                    {j > 0 && <span class="text-yellow"> → </span>}
+                    <span class="whitespace-nowrap">{step}</span>
+                  </>
+                ))
+              }
+            </p>
+            <ul class="flex flex-wrap gap-2">
+              {s.tags.map((t) => (
+                <li class="tag text-[13px]">{t}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
