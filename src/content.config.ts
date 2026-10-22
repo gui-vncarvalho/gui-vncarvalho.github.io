@@ -15,9 +15,13 @@ const blog = defineCollection({
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/projects' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     summary: z.string(),
+    order: z.number(),
+    tags: z.array(z.string()).default([]),
+    stage: z.enum(['purple', 'white', 'yellow']),
+    shots: z.object({ desktop: image(), mobile: image(), url: z.string() }),
     role: z.string(),
     stack: z.array(z.string()).default([]),
     period: z.object({
@@ -38,7 +42,6 @@ const projects = defineCollection({
         repo: z.string().url().optional(),
       })
       .default({}),
-    images: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),

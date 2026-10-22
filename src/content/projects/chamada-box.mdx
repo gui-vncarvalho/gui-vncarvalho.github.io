@@ -1,0 +1,50 @@
+---
+title: "Chamada BOX"
+summary: "Sistema simples para registrar a presença dos jovens a cada encontro."
+order: 2
+tags: ["Presença", "Acesso por código", "Uso no celular"]
+stage: "white"
+shots:
+  desktop: "../../assets/projects/chamada-box-desktop.png"
+  mobile: "../../assets/projects/chamada-box-mobile.png"
+  url: "chamada"
+role: "Desenvolvedor único (full stack)"
+stack: ["JavaScript (módulos ES, sem build)", "Supabase (Postgres, Edge Functions)", "GitHub Pages", "PWA", "Web Push"]
+period:
+  start: "2026"
+featured: true
+links: {}
+---
+
+## Contexto
+
+A diretoria de um ministério de jovens divide entre si quem chama cada jovem para os
+encontros e precisa saber quem veio. Antes, isso vivia em listas soltas, sem histórico e sem
+como saber quem já tinha sido chamado.
+
+## Problema
+
+- Marcações não eram compartilhadas: cada um tinha a sua lista.
+- Ferramentas anteriores pediam login e permissões que confundiam a equipe.
+- Os dados são de jovens, inclusive menores, então privacidade era obrigatória.
+
+## O que foi construído
+
+- **Quem chama quem**: distribuição automática das chamadas entre a diretoria.
+- **Presença na porta**: um toque marca e desmarca, com fila offline para sinal ruim.
+- **Histórico**: frequência por pessoa, "quem sumiu", justificativas e resumo de quem da
+  diretoria fez as chamadas.
+- Aniversariantes, vínculos entre jovens e avisos no celular (Web Push).
+
+## Decisões de arquitetura
+
+- **Acesso por código da diretoria**, sem contas: o banco guarda só o hash, e as tabelas ficam
+  fechadas, acessíveis apenas por funções no Postgres que validam o código.
+- **Sem build**: módulos ES nativos servidos pelo GitHub Pages, leve o suficiente para
+  qualquer celular.
+- Nenhum dado pessoal gravado no aparelho; a fila offline guarda só identificadores.
+
+## Resultado
+
+A diretoria usa o sistema a cada encontro, pelo celular, com o histórico de presença
+acumulando semana a semana.

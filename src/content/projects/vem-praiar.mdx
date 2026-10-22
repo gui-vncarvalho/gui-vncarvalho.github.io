@@ -1,0 +1,56 @@
+---
+title: "Vem Praiar"
+summary: "Aplicativo web para alugar imóveis de temporada, que instala no celular como um app."
+order: 1
+tags: ["PWA", "Temporada", "Venda"]
+stage: "purple"
+shots:
+  desktop: "../../assets/projects/vem-praiar-desktop.png"
+  mobile: "../../assets/projects/vem-praiar-mobile.png"
+  url: "vempraiarr.com.br"
+role: "Desenvolvedor único (full stack)"
+stack: ["Astro", "TypeScript", "Supabase (Postgres, Auth, Edge Functions)", "Cloudflare Workers", "Web Push"]
+period:
+  start: "2026"
+featured: true
+links:
+  live: "https://vempraiarr.com.br/"
+---
+
+## Contexto
+
+A Vem Praiar administra apartamentos e casas de temporada em Praia Grande, SP. Todo o
+atendimento acontecia no WhatsApp e no Instagram, e o controle de reservas, proprietários e
+repasses ficava em planilhas.
+
+## Problema
+
+- Clientes pediam fotos, preços e datas livres um por um, sempre pelo WhatsApp.
+- A equipe não tinha uma visão única de ocupação, limpezas e reservas.
+- O financeiro (comissões, limpeza, repasse a proprietários e parceiros) era fechado à mão.
+
+## O que foi construído
+
+- **Vitrine pública** rápida e indexável, com prévia de link bonita no WhatsApp: imóveis por
+  modalidade (temporada, aluguel e venda), fotos, vídeo do Instagram e tarifas por período.
+- **Pedido de reserva** com calendário, levando o cliente direto para o WhatsApp com a triagem
+  já preenchida.
+- **Painel da equipe**: cadastro de imóveis com rascunho automático, calendário de ocupação,
+  contatos que viram reservas, proprietários, exportação de planilha e avisos no celular
+  (Web Push).
+- **Financeiro**: lucro por reserva, repasses a proprietários e a parceiros, com a importação
+  do histórico do ano conferida contra a planilha original.
+- Instala no celular como app (PWA).
+
+## Decisões de arquitetura
+
+- **Astro no edge (Cloudflare Workers)** para SEO e prévias de link, com páginas dinâmicas só
+  onde precisa.
+- **Supabase** com Row Level Security para a equipe, Edge Functions para avisos e integrações
+  e backup diário criptografado via GitHub Actions.
+- Migrações só aditivas, porque a equipe já usa o sistema em produção todos os dias.
+
+## Resultado
+
+A equipe cadastra e gerencia os imóveis reais pelo painel desde a primeira semana no ar, e o
+fechamento financeiro do ano saiu da planilha para o sistema.

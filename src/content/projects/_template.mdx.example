@@ -10,12 +10,19 @@
 # Candidatos a cases futuros (lembrete, não esquecer):
 #   - "nilo": projeto pessoal, gestor financeiro — pode virar case assim que estiver
 #     apresentável.
-#   - Projetos feitos para empregadores: SÓ adicionar depois de
-#     confirmar autorização das respectivas empresas para citar o trabalho publicamente.
+#   - Trabalhos feitos para empregadores: nunca citar empresa nem produto interno;
+#     descrever pelo tipo de empresa e pelo resultado.
 #
 # ---
 # title: "Nome do projeto"
-# summary: "Resumo de 1-2 frases do que o projeto faz e para quem."
+# summary: "Frase simples, sem nome de ferramenta (aparece no card da home)."
+# order: 4               # posição na lista da home (1 = primeiro)
+# tags: ["Tag 1", "Tag 2", "Tag 3"]
+# stage: "purple"        # cor do palco: purple | white | yellow
+# shots:
+#   desktop: "../../assets/projects/nome-desktop.png"   # 1878×924
+#   mobile: "../../assets/projects/nome-mobile.png"     # 326×714
+#   url: "dominio.com"   # texto na barra do navegador
 # role: "Seu papel no projeto (ex: Desenvolvedor full stack, Tech lead, Colaborador principal)"
 # stack: ["Tecnologia 1", "Tecnologia 2"]
 # period:
@@ -27,7 +34,6 @@
 # links:
 #   live: "https://..."   # opcional
 #   repo: "https://..."   # opcional
-# images: ["/projects/nome-do-projeto/screenshot-1.png"]
 # featured: false
 # draft: true             # true até você revisar e ter certeza que pode publicar
 # ---
