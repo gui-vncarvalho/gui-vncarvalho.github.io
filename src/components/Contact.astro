@@ -1,8 +1,8 @@
 ---
 import { site } from '../data/site';
 
-const kinds = ['Site institucional', 'Loja virtual', 'Sistema sob medida', 'Pagamentos e integrações', 'Outro'];
-const DEFAULT_KIND = 2;
+const kinds = ['Vaga', 'Projeto freelance', 'Consultoria técnica', 'Parceria', 'Outro'];
+const DEFAULT_KIND = 0;
 const links = [
   { label: `LinkedIn · ${site.linkedin.label}`, href: site.linkedin.href },
   { label: `GitHub · ${site.github.label}`, href: site.github.href },
@@ -18,10 +18,10 @@ const field =
   >
     <div>
       <h2 class="font-display text-[clamp(44px,6.4vw,92px)] leading-[0.95] font-extrabold tracking-[-0.045em] text-balance">
-        Tem um sistema para tirar do papel?
+        Vamos conversar?
       </h2>
       <p class="mt-6 max-w-[520px] text-[clamp(18px,1.7vw,24px)] leading-[1.4] font-medium">
-        Me conta o que você precisa, em poucas palavras. Eu respondo com um plano claro, sem jargão.
+        Seja uma vaga, um projeto ou só uma troca de ideias sobre tecnologia, me manda uma mensagem.
       </p>
       <div class="mt-7 flex flex-wrap gap-2.5">
         {
@@ -53,7 +53,7 @@ const field =
       class="flex flex-col gap-4 rounded-[28px] bg-ink p-[clamp(20px,2.4vw,32px)] text-snow"
     >
       <fieldset class="flex flex-col gap-4">
-        <legend class="mb-4 text-xl font-bold">O que você quer construir?</legend>
+        <legend class="mb-4 text-xl font-bold">Sobre o que você quer falar?</legend>
         <div class="flex flex-wrap gap-2">
           {
             kinds.map((k, i) => (
@@ -67,7 +67,7 @@ const field =
       </fieldset>
       <input name="nome" aria-label="Seu nome" placeholder="Seu nome" autocomplete="name" required class={field} />
       <input name="email" type="email" aria-label="Seu e-mail" placeholder="Seu e-mail" autocomplete="email" required class={field} />
-      <textarea name="mensagem" aria-label="Conte um pouco sobre a ideia" placeholder="Conte um pouco sobre a ideia" class:list={[field, 'h-24 resize-none']}></textarea>
+      <textarea name="mensagem" aria-label="Conte um pouco sobre a oportunidade" placeholder="Conte um pouco sobre a oportunidade" class:list={[field, 'h-24 resize-none']}></textarea>
       <p data-contact-error role="alert" class="text-sm font-medium text-[oklch(0.82_0.12_25)] empty:hidden"></p>
       <button type="submit" class="btn-yellow p-[17px] text-[17px]">Enviar mensagem →</button>
     </form>
